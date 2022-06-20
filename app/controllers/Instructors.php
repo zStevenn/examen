@@ -22,7 +22,7 @@ class Instructors extends Controller
 
         foreach ($instructors as $value){
 
-            if($value->electric == 0){
+            if($value->electric == 1){
                 $electric = "Ja";
             } else {
                 $electric = "Nee";
