@@ -15,6 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- Homebrewed CSS -->
     <link rel="stylesheet" href="<?= URLROOT; ?>/public/css/style.css">
-    <title>Landen van de Wereld</title>
+    <title>Easy Drive 4 All</title>
   </head>
   <body>

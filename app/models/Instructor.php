@@ -1,18 +1,16 @@
 <?php
 
-namespace TDD\models;
-
 use TDD\libraries\Database;
 
-class Instructor
-{
+class Instructor {
     private $db;
 //    This is the constructor to make the connection to the database
     public function __construct(){
         $this->db = new Database();
     }
 //    This function gets all the data from the instructors and cars tables
-    public function findInstructors(){
+    public function findInstructors()
+    {
         $this->db->query("SELECT    INS.email,
 		                                INS.firstname,
                                         INS.lastname,
@@ -27,6 +25,7 @@ class Instructor
                             INNER JOIN cars as CAR
                             on INS.license_plate = CAR.license_plate");
 // sets the variable result with the help of PDO resultSet
-        return $this->db->resultSet();
-    }
-}
+        $result = $this->db->resultSet();
+//        var_dump($result);
+        return $result;
+    }}
