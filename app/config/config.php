@@ -7,7 +7,6 @@ define('DB_NAME', 'mvcframework');
 
 define('APPROOT', dirname(dirname(__FILE__))) ;
 
-define('URLROOT', 'http://www.mvc-framework.org');
+define('URLROOT', 'http://www.easydrive4all.org');
 
 define('SITENAME', 'MVC Framework');
-?>

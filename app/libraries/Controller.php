@@ -5,17 +5,19 @@
 
 namespace TDD\libraries;
 
-
-class Controller {
+class Controller
+{
   // Geen properties
-  
 
-  public function model($model) {
-    require_once('C:/projects_C2021/mvc-framework/app/models/' . $model . '.php');
+
+  public function model($model)
+  {
+    require_once('C:/Users/steve/Downloads/examen/project/app/models/' . $model . '.php');
     return new $model();
   }
 
-  public function view($view, $data = []) {
+  public function view($view, $data = [])
+  {
     if (file_exists('../app/views/' . $view . '.php')) {
       require_once('../app/views/' . $view . '.php');
     } else {
