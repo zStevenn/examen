@@ -1,7 +1,7 @@
 <?php
   namespace TDD\libraries;
 
-  require 'C:/projects_C2021/mvc-framework/app/config/config.php';
+  require 'D:\Code\examen\app\config\config.php';
 
   use \PDO;
 

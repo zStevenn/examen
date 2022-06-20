@@ -7,7 +7,7 @@ define('DB_NAME', 'easydriveforall');
 
 define('APPROOT', dirname(dirname(__FILE__))) ;
 
-define('URLROOT', 'www.easydrive4all.org');
+define('URLROOT', 'http://www.easydrive4all.org');
 
 define('SITENAME', 'easydriveforall');
 ?>

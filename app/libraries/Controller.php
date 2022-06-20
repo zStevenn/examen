@@ -11,7 +11,7 @@ class Controller {
   
 
   public function model($model) {
-    require_once('C:/projects_C2021/mvc-framework/app/models/' . $model . '.php');
+    require_once(APPROOT.'/models/' . $model . '.php');
     return new $model();
   }
 
