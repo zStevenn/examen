@@ -28,7 +28,7 @@ class Visitors extends Controller
 
     // Give data to view
     $data = [
-      'title' => "Visitors Index",
+      'title' => "Lesson Packages",
       'packageoptions' => $packageoptions
     ];
     $this->view('visitors/index', $data);

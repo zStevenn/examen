@@ -21,3 +21,4 @@
   <br>
   <button type="submit" value="submit">Submit</button>
 </form>
+<a href="<?= URLROOT; ?>/homepages/index">Back to homepage index</a>
