@@ -22,14 +22,14 @@ class Visitor
   public function signupForLessonpackage($post)
   {
     try {
-      $this->db->query("INSERT INTO country (id, name, capitalCity, continent, population) 
-                          VALUES(:id, :name, :capitalCity, :continent, :population)");
+      $this->db->query("INSERT INTO visitor (email, firstname, infix, lastname, lessonpackage) 
+                          VALUES(:email, :firstname, :infix, :lastname, :lessonpackage)");
 
-      $this->db->bind(':id', NULL, PDO::PARAM_INT);
-      $this->db->bind(':name', $post["name"], PDO::PARAM_STR);
-      $this->db->bind(':capitalCity', $post["capitalCity"], PDO::PARAM_STR);
-      $this->db->bind(':continent', $post["continent"], PDO::PARAM_STR);
-      $this->db->bind(':population', $post["population"], PDO::PARAM_INT);
+      $this->db->bind(':email', $post["email"], PDO::PARAM_STR);
+      $this->db->bind(':firstname', $post["firstname"], PDO::PARAM_STR);
+      $this->db->bind(':infix', $post["infix"], PDO::PARAM_STR);
+      $this->db->bind(':lastname', $post["lastname"], PDO::PARAM_STR);
+      $this->db->bind(':lessonpackage', $post["lessonpackage"], PDO::PARAM_INT);
 
       return $this->db->execute();
     } catch (PDOException $e) {

@@ -17,22 +17,13 @@ class Visitors extends Controller
   // Call index view
   public function index()
   {
-    // Retrieve all lesson packages from the lessonpackage database
-    $lessonpackages = $this->lessonpackageModel->getAllLessonpackages();
-
-    // Turn all lesson packages into HTML Options for a select form
-    $packageoptions = "";
-    foreach ($lessonpackages as $lpnames) {
-      $packageoptions .= "<option value='" . $lpnames->lessonpackageid . "'>" . $lpnames->packagename . "</option>";
-    }
-
     // Default values for view visitors/index.php
     $forminputs = [
       'firstname' => '',
       'infix' => '',
       'lastname' => '',
       'email' => '',
-      'lessonpackage' => '',
+      'lessonpackage' => null,
       'firstnameError' => '',
       'lastnameError' => '',
       'infixError' => '',
@@ -52,7 +43,7 @@ class Visitors extends Controller
         'infix' => trim($_POST['infix']),
         'lastname' => trim($_POST['lastname']),
         'email' => trim($_POST['email']),
-        'lessonpackage' => trim($_POST['lessonpackage']),
+        'lessonpackage' => (int)trim($_POST['lessonpackage']),
         'firstnameError' => '',
         'lastnameError' => '',
         'infixError' => '',
@@ -74,7 +65,6 @@ class Visitors extends Controller
         // Call signupForLessonpackage function in model Visitor.php
         if ($this->visitorModel->signupForLessonpackage($_POST)) {
         } else {
-          
         }
       } else {
         // Give the error details to the view to display.
@@ -83,11 +73,34 @@ class Visitors extends Controller
       // Nothing happens due to there being no POST values.
     }
 
+    // Retrieve all lesson packages from the lessonpackage database
+    $lessonpackages = $this->lessonpackageModel->getAllLessonpackages();
+
+    // Turn all lesson packages into HTML Options for a select form
+    $packageoptions = "";
+    foreach ($lessonpackages as $lpnames) {
+      // If lessonpackageid does not match with form input, print a non selected option
+      if ($lpnames->lessonpackageid != $forminputs['lessonpackage']) {
+        $packageoptions .= "<option value='" . $lpnames->lessonpackageid . "'>" . $lpnames->packagename . "</option>";
+      } else {
+        // If lessonpackageid matches with form input, print a selected option
+        $packageoptions .= "<option selected value='" . $lpnames->lessonpackageid . "'>" . $lpnames->packagename . "</option>";
+      }
+    }
+
     // Give data to view
     $data = [
       'title' => "Lesson Packages",
       'packageoptions' => $packageoptions,
-      'formvalues' => $forminputs
+      'firstname' => $forminputs['firstname'],
+      'infix' => $forminputs['infix'],
+      'lastname' => $forminputs['lastname'],
+      'email' => $forminputs['email'],
+      'firstnameError' => $forminputs['firstnameError'],
+      'lastnameError' => $forminputs['lastnameError'],
+      'infixError' => $forminputs['infixError'],
+      'emailError' => $forminputs['emailError'],
+      'lessonpackageError' => $forminputs['lessonpackageError']
     ];
     $this->view('visitors/index', $data);
   }
@@ -95,7 +108,6 @@ class Visitors extends Controller
   // Extra validation after data has been trimmed and removed of special characters
   private function validatePackageForm($data)
   {
-    var_dump($data);
     if (empty($data['firstname'])) {
       $data['firstnameError'] = 'You did not fill in a first name.';
     } elseif (filter_var($data['firstname'], FILTER_VALIDATE_EMAIL)) {
@@ -126,6 +138,8 @@ class Visitors extends Controller
 
     if (empty($data['lessonpackage'])) {
       $data['lessonpackageError'] = 'You have not selected a lesson package.';
+    } elseif (!is_numeric($data['lessonpackage'])) {
+      $data['lessonpackageError'] = 'Something went wrong selecting the lesson package.';
     }
     return $data;
   }
