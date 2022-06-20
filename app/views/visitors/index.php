@@ -15,10 +15,9 @@
   <br>
   <label>Lesson package</label>
   <select name="lessonpackage">
-    <option value="x">x</option>
+    <!-- Echo packageoptions variable given with the Visitors controller -->
+    <?= $data["packageoptions"]; ?>
   </select>
   <br>
   <button type="submit" value="submit">Submit</button>
 </form>
-
-<?php var_dump($_POST); ?>

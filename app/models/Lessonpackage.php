@@ -2,7 +2,7 @@
 
 use TDD\libraries\Database;
 
-class Country
+class Lessonpackage
 {
   // Properties, fields
   private $db;
@@ -12,5 +12,13 @@ class Country
   public function __construct()
   {
     $this->db = new Database();
+  }
+
+  // Method to retrieve all lesson packages
+  public function getAllLessonpackages()
+  {
+    $this->db->query("SELECT * FROM `lessonpackage` ORDER BY `lessonpackageid` ASC;");
+    $result = $this->db->resultSet();
+    return $result;
   }
 }
