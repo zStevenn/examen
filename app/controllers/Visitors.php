@@ -56,14 +56,18 @@ class Visitors extends Controller
 
       // Check if there are errors.
       if (
-        empty($data['firstnameError']) &&
-        empty($data['lastnameError']) &&
-        empty($data['infixError']) &&
-        empty($data['emailError']) &&
-        empty($data['lessonpackageError'])
+        empty($forminputs['firstnameError']) &&
+        empty($forminputs['lastnameError']) &&
+        empty($forminputs['infixError']) &&
+        empty($forminputs['emailError']) &&
+        empty($forminputs['lessonpackageError'])
       ) {
         // Call signupForLessonpackage function in model Visitor.php
         if ($this->visitorModel->signupForLessonpackage($_POST)) {
+          echo "Thank you for choosing Easy Drive 4 All, " . $forminputs["firstname"] . "!";
+          echo "<br> You have successfully signed up at our school. You will be redirected to our homepage shortly.";
+          header("Refresh:5; url=" . URLROOT . "/homepages/index");
+          exit;
         } else {
         }
       } else {
