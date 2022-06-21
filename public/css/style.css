@@ -41,5 +41,28 @@
   padding: 100px 0px;
 }
 
+.btn{
+  margin-left: 10px;
+  background-color: grey;
+  padding: 8px 18px;
+  font-size: 20px;
+  text-transform: uppercase;
+
+}
+
+.btn:hover{
+  background-color: lightgrey;
+}
+
+.btn:hover{
+  background-color: lightgrey;
+}
+
+.container{
+  margin: 0 auto;
+  width: 80%;
+  padding: 100px 0px;
+}
+
 
 
