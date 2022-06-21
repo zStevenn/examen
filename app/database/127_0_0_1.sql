@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Gegenereerd op: 14 jun 2022 om 14:56
--- Serverversie: 5.7.31
--- PHP-versie: 7.4.15
+-- Gegenereerd op: 21 jun 2022 om 08:15
+-- Serverversie: 5.7.36
+-- PHP-versie: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,55 @@ SET time_zone = "+00:00";
 --
 -- Database: `easydriveforall`
 --
-CREATE DATABASE IF NOT EXISTS `easydriveforall` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `easydriveforall`;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `auto`
+--
+
+DROP TABLE IF EXISTS `auto`;
+CREATE TABLE IF NOT EXISTS `auto` (
+  `kenteken` varchar(20) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `eigenaar` int(2) UNSIGNED NULL,
+  PRIMARY KEY (`kenteken`),
+  KEY `fk_auto_eigenaar_id` (`eigenaar`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `auto`
+--
+
+INSERT INTO `auto` (`kenteken`, `type`, `eigenaar`) VALUES
+('90-KL-TR', 'Fiat 500', 5),
+('AU-67-IO', 'Golf', 3),
+('TH-78-KL', 'Ferrari', NULL),
+('YY-OP-78', 'Mercedes', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `instructeur`
+--
+
+DROP TABLE IF EXISTS `instructeur`;
+CREATE TABLE IF NOT EXISTS `instructeur` (
+  `naam` varchar(200) NOT NULL,
+  `tel` varchar(20) NOT NULL,
+  `instructeurid` int(2) UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`instructeurid`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `instructeur`
+--
+
+INSERT INTO `instructeur` (`naam`, `tel`, `instructeurid`) VALUES
+('Veen', '030-4512900', 3),
+('Sali', '030-7891231', 4),
+('Snoie', '078-4327777', 5),
+('Groot', '067-3456223', 6);
 
 -- --------------------------------------------------------
 
@@ -50,7 +97,6 @@ INSERT INTO `lessonpackage` (`lessonpackageid`, `packagename`, `packagedescripti
 
 -- --------------------------------------------------------
 
-
 --
 -- Tabelstructuur voor tabel `visitor`
 --
@@ -62,7 +108,8 @@ CREATE TABLE IF NOT EXISTS `visitor` (
   `infix` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `lessonpackage` int(2) UNSIGNED NOT NULL,
-  PRIMARY KEY (`email`)
+  PRIMARY KEY (`email`),
+  KEY `fk_visitor_lessonpackage_id` (`lessonpackage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -77,14 +124,21 @@ INSERT INTO `visitor` (`email`, `firstname`, `infix`, `lastname`, `lessonpackage
 ('emanuel@info.org', 'Emanuel', 'Ridder', 'Europa', 2),
 ('frank@info.org', 'Frank', 'Bern', 'Smith', 2);
 
-ALTER TABLE visitor
-    ADD CONSTRAINT fk_visitor_lessonpackage_id
-    FOREIGN KEY (lessonpackage)
-    REFERENCES lessonpackage(lessonpackageid);
+--
+-- Beperkingen voor geëxporteerde tabellen
+--
 
--- --------------------------------------------------------
+--
+-- Beperkingen voor tabel `auto`
+--
+ALTER TABLE `auto`
+  ADD CONSTRAINT `fk_auto_eigenaar_id` FOREIGN KEY (`eigenaar`) REFERENCES `instructeur` (`instructeurid`);
 
-
+--
+-- Beperkingen voor tabel `visitor`
+--
+ALTER TABLE `visitor`
+  ADD CONSTRAINT `fk_visitor_lessonpackage_id` FOREIGN KEY (`lessonpackage`) REFERENCES `lessonpackage` (`lessonpackageid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
