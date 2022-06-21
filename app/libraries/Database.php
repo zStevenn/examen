@@ -1,9 +1,10 @@
 <?php
   namespace TDD\libraries;
 
-  require 'C:/projects_C2021/mvc-framework/app/config/config.php';
+  require 'C:\Workspace\EXA\app\config\config.php';
 
   use \PDO;
+  use \PDOException;
 
   class Database {
     private $dbHost = DB_HOST;

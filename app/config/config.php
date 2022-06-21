@@ -7,7 +7,7 @@ define('DB_NAME', 'examen');
 
 define('APPROOT', dirname(dirname(__FILE__))) ;
 
-define('URLROOT', 'http://www.mvc-framework.org');
+define('URLROOT', 'http://www.examen.org/');
 
-define('SITENAME', 'MVC Framework');
+define('SITENAME', 'Examen');
 ?>
