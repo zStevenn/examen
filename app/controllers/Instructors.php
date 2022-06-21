@@ -21,13 +21,13 @@ class Instructors extends Controller
 
 
         foreach ($instructors as $value){
-
+//        Checks the value of electric and changes the value to yes or no
             if($value->electric == 1){
-                $electric = "Ja";
+                $electric = "Yes";
             } else {
-                $electric = "Nee";
+                $electric = "No";
             }
-
+//        sets the rows variable to return the values from the database
             $rows .= "<tr>
                         <td>" . $value->email . "</td>
                         <td>" . $value->firstname . "</td>

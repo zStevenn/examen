@@ -1,8 +1,9 @@
 <?php
 require APPROOT . '/views/includes/header.php';
-echo $data["title"];
 //var_dump($data);exit();
 ?>
+<div class="container-fluid">
+    <?php echo $data["title"];?>
 <table class = "table">
     <thead>
     <th scope="col">E-mail</th>
@@ -15,7 +16,10 @@ echo $data["title"];
     <th scope="col">Car model</th>
     <th scope="col">Electric</th>
     </thead>
+<!--    Loads the data from the controller and puts it in a table body-->
     <tbody>
     <?=$data['instructors']?>
     </tbody>
 </table>
+<a href="<?=URLROOT;?>/homepages/index" class="btn">terug</a>
+</div>
