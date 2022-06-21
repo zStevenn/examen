@@ -29,7 +29,6 @@
         
         } catch (PDOException $e) {
             // if goes wrong
-            var_dump();exit();
             logger(__FILE__, __METHOD__, __LINE__, $e->getMessage());
             return 0;
         }

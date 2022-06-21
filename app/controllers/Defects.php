@@ -70,7 +70,11 @@ class Defects extends Controller
             // if empty error
             if (empty($data['KentekenError']) && empty($data['MankementError'])) {
                 if ($this->DefectModel->createMankement($_POST)) {
-                    header("Location:" . URLROOT . "/defects/index");
+                    header("refresh:5;url=" . URLROOT . "/defects/index");
+                    echo "<div class='alert alert-succes' role='alert'>
+                        Mankement is succesfol toegevoegd.
+                        </div>";
+                    
                 } else {
                     echo "<div class='alert alert-danger' role='alert'>
                             Er heeft een interne servererror plaatsgevonden<br>probeer het later nog eens...
