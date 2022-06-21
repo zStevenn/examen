@@ -1,7 +1,11 @@
 <?php
+
+
 /**
- * Dit is de testclass voor de activeStudents controller class
+ * Dit is de testclass voor de countries controller class
  */
+
+
 namespace TDD\Test;
 
 require dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
@@ -12,16 +16,16 @@ use TDD\controllers\ActiveStudents;
 
 class ActiveStudentTest extends TestCase
 {
-   public function testSayStudentName()
+   public function testActiveStudentName()
    {
-         $ActiveStudent = new ActiveStudents();
-         $output = $ActiveStudent->sayStudentName();
-         $expected = "student";
-         $message = "Er moet uitkomen student";
+      $ActiveStudent = new ActiveStudents();
+      $output = $ActiveStudent->SuperCooleTest();
+      $expected = "supercooleretest";
+      $message = "Er moet uitkomen supercooleretest";
 
-         $this->assertEquals($expected,
-                              $output,
-                              $message);
+      $this->assertEquals($expected,
+                           $output,
+                           $message);
 
-      }
+   }
 }
