@@ -6,31 +6,33 @@ class Annoucement {
     public function __construct() {
       $this->db = new Database();
     }
-    public function annoucement($Announcement) {
+    public function annoucement(){
       $id = $_GET['id'];
-      $a = $Announcement;
+      $sql = "SELECT `an` .ID, `an` .Instructor, `an` .Announcement, `in` .Id  FROM `announcementsin`as `an` INNER JOIN `instructor` as `in` WHERE `in` .Id = $id";
+
+      $this->db->query($sql);
+      // Returns 1 data row
+      $data = $this->db->single();
+      // Return data
+      return $data;
+
+    }
+    public function updateannoucement($data, $id) {
   
       //SQL Statement
-      $sql = "UPDATE `announcementsin` SET 
-                      `Announcement`= $a
-                       WHERE `Instructor` = $id";
-  
-  
+      
+      
+   
+      $this->db->bind(':instructor' , $data['announcement']);
+
       // Prepare sql statement
-      $this->db->query($sql);
+      $this->db->query("INSERT INTO announcementsin( Instructor, Announcement) VALUES ($id, :announcement)");
   
       // Execute sql statement
-      $this->db->execute();
+     return $this->db->execute();
   
-      // Check if query is executed (1 row made)
-      if ($this->db->rowCount() === 1)
-      {
-          // This happens if query is executed successfully
-          return "Success";
-      } else {
-          // This happens if query fails
-          return "Failed";
-      }
+     
+  
     } 
     
   

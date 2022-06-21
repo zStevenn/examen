@@ -2,11 +2,11 @@
   require APPROOT . '/views/includes/header.php';
 var_dump($data)
 ?>
- <form action="" method="POST" class="form">
+ <form action='<?= URLROOT; ?>\Announcements\updateannoucement?id=<?= $data->Instructor; ?>' method="POST" class="form">
                         <div class="row">
                         <div class="col-12">
                             <label class="visually-hidden">Annoucement</label>
-                            <input type="Announcement" name="inputAnnouncement" class="form-control" id="inputAnnouncement" placeholder="Announcement">
+                            <input value="<?= $data->Announcement; ?>" type="inputAnnouncement" name="inputAnnouncement" class="form-control" id="inputAnnouncement" placeholder="Announcement">
                         </div>
                         <br></br>   
                         <div class="row">

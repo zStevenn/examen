@@ -51,22 +51,39 @@ class Announcements extends Controller
         ]);
        
     }
-    public function annoucement()
+    public function annoucement() {
+        $data =$this->AnnouncementModel->annoucement();
+        $this->view('announcements/annoucement', $data);
+  
+    }
+    public function updateannoucement()
     {   
+        $data =[
+                
+                    'instructor' => 'announcement'
+                  
+                ];
+        
+        
+
         if (isset($_POST)) {
             // Check if submit button is pressed
             if (isset($_POST["submit"])) {
               // Put post values into variables
-              $Announcement = $_POST["inputAnnouncement"];
+              $data = [
+                'instructor' => $_POST['announcement']
+              ];
+              $id = $_GET["id"];
              
+              $this->AnnouncementModel->updateannoucement($id, $data);
       
               //Check if variables are not empty
             
             }
           }
       
-        $this->AnnouncementModel->annoucement($Announcement);
-        $this->view('announcements/annoucement');
+        $this->AnnouncementModel->updateannoucement($id, $data);
+       
     }
   
 
