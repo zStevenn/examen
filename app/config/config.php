@@ -1,8 +1,8 @@
 <?php
 
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_USER', 'easydrive4all');
+define('DB_PASS', 'easydrive4');
 define('DB_NAME', 'easydriveforall');
 
 define('APPROOT', dirname(dirname(__FILE__)));
