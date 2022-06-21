@@ -1,9 +1,9 @@
 <?php
   namespace TDD\libraries;
 
-  require 'C:/projects_C2021/mvc-framework/app/config/config.php';
+  require 'C:/MBOUtrecht_Examen/mvc-framework/app/config/config.php';
 
-  use \PDO;
+  use PDO;
 
   class Database {
     private $dbHost = DB_HOST;
