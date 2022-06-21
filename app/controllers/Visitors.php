@@ -147,4 +147,9 @@ class Visitors extends Controller
     }
     return $data;
   }
+
+  public function test()
+  {
+    return "test";
+  }
 }
