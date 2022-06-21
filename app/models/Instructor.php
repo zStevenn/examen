@@ -25,7 +25,6 @@ class Instructor {
                             INNER JOIN cars as CAR
                             on INS.license_plate = CAR.license_plate");
 // sets the variable result with the help of PDO resultSet
-        $result = $this->db->resultSet();
-//        var_dump($result);
-        return $result;
+        //        var_dump($result);
+        return $this->db->resultSet();
     }}
