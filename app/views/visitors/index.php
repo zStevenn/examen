@@ -1,4 +1,7 @@
-<h3><?= $data["title"]; ?></h3>
+<?php
+require APPROOT . '/views/includes/header.php';
+echo $data["title"];
+?>
 <!-- Form for signing up for a lessonpackage -->
 <form action="" method="POST">
   <label>First Name</label>

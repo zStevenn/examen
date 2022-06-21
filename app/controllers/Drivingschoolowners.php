@@ -17,7 +17,9 @@ class Drivingschoolowners extends Controller
   // Method to display view visitors/index with data
   public function index()
   {
-    $data = null;
+    $data = [
+      'title' => 'Driving school owner Index'
+    ];
 
     $this->view('drivingschoolowners/index', $data);
   }
