@@ -1,9 +1,9 @@
 <?php
 
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'mvcframework');
+define('DB_USER', 'owner');
+define('DB_PASS', 'SQLWachtwoord!');
+define('DB_NAME', 'examen');
 
 define('APPROOT', dirname(dirname(__FILE__))) ;
 
