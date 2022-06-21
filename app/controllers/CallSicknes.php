@@ -34,36 +34,41 @@ class CallSicknes extends Controller
             $data=
                 [
                     'email'=>$_POST['email'],
-                    'reason'=>$_POST['reason'],
+                    'reason'=>$_POST['reason']
                 ];
-        }
-        // looking if email is empty
-        if(empty($data['email']))
-        {
-            $data['emailError'] = 'please fill in a vallid email';
-        }else
-        {
-            $data['emailError'] = '';
-        }
-        // looking for the empty email error to send the data if it is empty
-        if(empty($data['emailError']))
-        {
-            if($this->Emailcheck->checkemail($data))
+
+            $data = $this->validateCreateForm($data);
+
+            if(empty($data['emailError']))
             {
-                if ($this->Callsickmodel->createSicknes($data)) {
-                    header('location: ' . URLROOT . './CallSicknes/index');
-                } else {
-                    die('something went wrong');
+                if($this->Emailcheck->checkemail($data))
+                {
+                    if ($this->Callsickmodel->createSicknes($data)) {
+                        header('location: ' . URLROOT . './CallSicknes/index');
+                    } else {
+                        die('something went wrong');
+                    }
                 }
             }else
             {
-                echo "something went wrong";
+                echo "<div class='alert alert-danger' role='alert'>
+                            Geen email ingevuld
+                        </div>";
+                header("Refresh:3; url=" . URLROOT . "/callsicknes/index");
             }
-        }else
-        {
-            $data['emailError'] = 'please fill in a vallid email';
         }
         //bring the data to the view
         $this->view('CallSicknes/index', $data);
+        $this->view('CallSicknes/index', $data);
+    }
+
+    private function validateCreateForm($data) {
+
+
+        if(empty($data['email']))
+        {
+            $data['emailError'] = 'please fill in a vallid email';
+        }
+        return $data;
     }
 }
