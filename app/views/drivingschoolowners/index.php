@@ -18,7 +18,6 @@ echo $data["title"];
   </div>
 </div>
 
-
 <ul>
   <li><a href="<?= URLROOT; ?>/homepages/index">Back to homepage index</a></li>
 </ul>
