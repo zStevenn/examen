@@ -18,141 +18,73 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mvcframework`
+-- Database: `easydriveforall`
 --
-CREATE DATABASE IF NOT EXISTS `mvcframework` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `mvcframework`;
+CREATE DATABASE IF NOT EXISTS `easydriveforall` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `easydriveforall`;
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `country`
+-- Tabelstructuur voor tabel `lessonpackage`
 --
 
-DROP TABLE IF EXISTS `country`;
-CREATE TABLE IF NOT EXISTS `country` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(300) NOT NULL,
-  `capitalCity` varchar(300) NOT NULL,
-  `continent` enum('Afrika','Antartica','Azie','Australie/Oceanie','Europa','Noord-Amerika','Zuid-Amerika') NOT NULL,
-  `population` int(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
-
---
--- Gegevens worden geëxporteerd voor tabel `country`
---
-
-INSERT INTO `country` (`id`, `name`, `capitalCity`, `continent`, `population`) VALUES
-(39, 'China', 'Bejing', 'Australie/Oceanie', 1234000000),
-(58, 'Tanzania', 'Dodoma', 'Afrika', 59730000),
-(47, 'Japan', 'Tokyo', 'Azie', 1230000000),
-(73, 'Senegal', 'Dakar', 'Afrika', 16740001),
-(54, 'Belgi&euml;', 'Brussel', 'Europa', 3254364324),
-(62, 'Zwitserland', 'Bern', 'Europa', 4294267295);
-
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `countrys`
---
-
-DROP TABLE IF EXISTS `countrys`;
-CREATE TABLE IF NOT EXISTS `countrys` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(300) NOT NULL,
-  `capitalCity` varchar(300) NOT NULL,
-  `continent` enum('Afrika','Antarctica','Azië','Australië/Oceanië','Europa','Noord-Amerika','Zuid-Amerika') NOT NULL,
-  `population` int(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`)
+DROP TABLE IF EXISTS `lessonpackage`;
+CREATE TABLE IF NOT EXISTS `lessonpackage` (
+  `lessonpackageid` int(2) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `packagename` varchar(200) NOT NULL,
+  `packagedescription` varchar(200) NOT NULL,
+  PRIMARY KEY (`lessonpackageid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
--- Gegevens worden geëxporteerd voor tabel `countrys`
+-- Gegevens worden geëxporteerd voor tabel `lessonpackage`
 --
 
-INSERT INTO `countrys` (`id`, `name`, `capitalCity`, `continent`, `population`) VALUES
-(3, 'Chilies', 'Santiagos', 'Noord-Amerika', 19116203),
-(4, 'Canada', 'Ottawa', 'Noord-Amerika', 37742154),
-(5, 'Australië', 'Canberra', 'Australië/Oceanië', 25499884),
-(6, 'China', 'Beijing', 'Azië', 1439323776),
-(16, 'Nederland', 'Amsterdam', 'Europa', 170000000);
+INSERT INTO `lessonpackage` (`lessonpackageid`, `packagename`, `packagedescription`) VALUES
+(1, 'Super Speed Package', 'For the experienced including 7 lessons'),
+(2, 'Small Package', '15 Lessons for the quick studies'),
+(3, 'Basic Package', '20 Lessons enough for the default learner'),
+(4, 'Special Package', '25 Lessons, just in case'),
+(5, 'Extra Package', '30 Lessons, for the ones who enjoy the company');
 
 -- --------------------------------------------------------
 
---
--- Tabelstructuur voor tabel `fruit`
---
-
-DROP TABLE IF EXISTS `fruit`;
-CREATE TABLE IF NOT EXISTS `fruit` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `color` varchar(50) NOT NULL,
-  `price` float NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
--- Gegevens worden geëxporteerd voor tabel `fruit`
+-- Tabelstructuur voor tabel `visitor`
 --
 
-INSERT INTO `fruit` (`id`, `name`, `color`, `price`) VALUES
-(3, 'Paprikaatje', 'roodbruin', 2.45),
-(4, 'Citroen', 'geel', 1.67),
-(5, 'Aardbei', 'rood', 2.56),
-(6, 'Peer', 'groen', 0.88);
+DROP TABLE IF EXISTS `visitor`;
+CREATE TABLE IF NOT EXISTS `visitor` (
+  `email` varchar(200) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `infix` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `lessonpackage` int(2) UNSIGNED NOT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `visitor`
+--
+
+INSERT INTO `visitor` (`email`, `firstname`, `infix`, `lastname`, `lessonpackage`) VALUES
+('abe@info.org', 'Abe', 'Bejing', 'Li', 1),
+('bee@info.org', 'Bee', 'Dodoma', 'Chang', 2),
+('coen@info.org', 'Coen', 'Tokyo', 'Klomp', 3),
+('dick@info.org', 'Dick', 'Dakar', 'Zen', 1),
+('emanuel@info.org', 'Emanuel', 'Ridder', 'Europa', 2),
+('frank@info.org', 'Frank', 'Bern', 'Smith', 2);
+
+ALTER TABLE visitor
+    ADD CONSTRAINT fk_visitor_lessonpackage_id
+    FOREIGN KEY (lessonpackage)
+    REFERENCES lessonpackage(lessonpackageid);
 
 -- --------------------------------------------------------
 
---
--- Tabelstructuur voor tabel `rollercoaster`
---
 
-DROP TABLE IF EXISTS `rollercoaster`;
-CREATE TABLE IF NOT EXISTS `rollercoaster` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nameRollerCoaster` varchar(200) NOT NULL,
-  `nameAmusementPark` varchar(200) NOT NULL,
-  `country` varchar(100) NOT NULL,
-  `topspeed` tinyint(4) UNSIGNED NOT NULL,
-  `height` tinyint(4) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Gegevens worden geëxporteerd voor tabel `rollercoaster`
---
-
-INSERT INTO `rollercoaster` (`id`, `nameRollerCoaster`, `nameAmusementPark`, `country`, `topspeed`, `height`) VALUES
-(1, 'Red Force', 'Ferrari land', 'Spanje', 192, 112),
-(2, 'Ring Racer', 'Race circuit Nürnberg', 'Duitsland', 160, 110),
-(3, 'Hyperion', 'EnergyLandia', 'Polen', 141, 77),
-(4, 'Furios Baco', 'PortAventura', 'Spanje', 138, 23),
-(5, 'Shambala', 'PortAventura', 'Spanje', 134, 102);
-
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `users`
---
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(255) NOT NULL,
-  `user_email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Gegevens worden geëxporteerd voor tabel `users`
---
-
-INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `password`) VALUES
-(1, 'rra', 'rra@mboutrecht.nl', 'Geheim!'),
-(2, 'hsok', 'hsok@mboutrecht.nl', 'Geheim!');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
