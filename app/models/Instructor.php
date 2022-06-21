@@ -11,6 +11,7 @@ class Instructor {
 //    This function gets all the data from the instructors and cars tables
     public function findInstructors()
     {
+        try{
         $this->db->query("SELECT    INS.email,
 		                                INS.firstname,
                                         INS.lastname,
@@ -27,4 +28,9 @@ class Instructor {
 // sets the variable result with the help of PDO resultSet
         //        var_dump($result);
         return $this->db->resultSet();
-    }}
+    }catch (PDOException $e){
+            logger(__FILE__, __METHOD__, __LINE__, $e->getMessage());
+            return 0;
+        }
+    }
+}

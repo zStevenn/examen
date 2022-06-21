@@ -92,9 +92,10 @@ class Mileages extends \TDD\libraries\Controller
                 'mileage' => $row->mileage,
                 'mileageError' => ''
             ];
-
             $this->view('mileages/update', $data);
         }
     }
-
+    public function test(){
+        return "Test";
+    }
 }

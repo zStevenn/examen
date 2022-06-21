@@ -1,7 +1,6 @@
 <?php
 
 use TDD\libraries\Database;
-
 class Mileage{
     private $db;
 
@@ -11,8 +10,10 @@ class Mileage{
     }
 //    This function gets all the data from the mileage and cars1 tables
 
-    public function findMileage(){
-        $this->db->query("SELECT  MIL.car,
+    public function findMileage()
+    {
+        try {
+            $this->db->query("SELECT  MIL.car,
 		                              CAR.type,
 		                              MIL.date,
                                       MIL.mileage 
@@ -24,29 +25,44 @@ class Mileage{
                               ");
 
 //          sets the variable result with the help of PDO resultSet
-        return $this->db->resultSet();
+            return $this->db->resultSet();
+        } catch (PDOException $e){
+            logger(__FILE__, __METHOD__, __LINE__, $e->getMessage());
+            return 0;
+        }
     }
 //    Function to check the database for a single car
     public function findCarMileage($car){
-        $this->db->query("SELECT id, car, mileage from mileage where car = :car");
+        try {
+            $this->db->query("SELECT id, car, mileage from mileage where car = :car");
 
-        $this->db->bind(':car', $car);
+            $this->db->bind(':car', $car);
 
-        return $this->db->single();
+            return $this->db->single();
+        } catch (PDOException $e){
+            logger(__FILE__, __METHOD__, __LINE__, $e->getMessage());
+            return 0;
+        }
 
     }
 
 //    Funcction to update the mileage table with the new data from the controller
-    public function updateMileage($data){
-        $this->db->query("UPDATE mileage 
+    public function updateMileage($data)
+    {
+        try {
+            $this->db->query("UPDATE mileage 
                         SET mileage = :mileage,
                             date = CURRENT_DATE
                             
                         WHERE id = :id");
-        $this->db->bind(':mileage', $data['mileage']);
-        $this->db->bind(':id', $data['id']);
+            $this->db->bind(':mileage', $data['mileage']);
+            $this->db->bind(':id', $data['id']);
 
-        return $this->db->execute();
+            return $this->db->execute();
+        } catch(PDOException $e) {
+            logger(__FILE__, __METHOD__, __LINE__, $e->getMessage());
+            return 0;
+        }
     }
 
 }
