@@ -44,4 +44,9 @@ class ActiveStudents extends Controller
         ];
         $this->view('ActiveStudents/index', $data);
     }
+    public function sayStudentName()
+{
+    return "student";
 }
+}
+
