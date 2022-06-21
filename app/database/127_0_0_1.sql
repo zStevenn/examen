@@ -26,34 +26,6 @@ USE `easydriveforall`;
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `visitor`
---
-
-DROP TABLE IF EXISTS `visitor`;
-CREATE TABLE IF NOT EXISTS `visitor` (
-  `email` varchar(200) NOT NULL,
-  `firstname` varchar(50) NOT NULL,
-  `infix` varchar(50) NOT NULL,
-  `lastname` varchar(50) NOT NULL,
-  `lessonpackage` int(2) NOT NULL,
-  PRIMARY KEY (`email`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Gegevens worden geëxporteerd voor tabel `visitor`
---
-
-INSERT INTO `visitor` (`email`, `firstname`, `infix`, `lastname`, `lessonpackage`) VALUES
-('abe@info.org', 'Abe', 'Bejing', 'Li', 1),
-('bee@info.org', 'Bee', 'Dodoma', 'Chang', 2),
-('coen@info.org', 'Coen', 'Tokyo', 'Klomp', 3),
-('dick@info.org', 'Dick', 'Dakar', 'Zen', 1),
-('emanuel@info.org', 'Emanuel', 'Ridder', 'Europa', 2),
-('frank@info.org', 'Frank', 'Bern', 'Smith', 2);
-
--- --------------------------------------------------------
-
---
 -- Tabelstructuur voor tabel `lessonpackage`
 --
 
@@ -77,6 +49,41 @@ INSERT INTO `lessonpackage` (`lessonpackageid`, `packagename`, `packagedescripti
 (5, 'Extra Package', '30 Lessons, for the ones who enjoy the company');
 
 -- --------------------------------------------------------
+
+
+--
+-- Tabelstructuur voor tabel `visitor`
+--
+
+DROP TABLE IF EXISTS `visitor`;
+CREATE TABLE IF NOT EXISTS `visitor` (
+  `email` varchar(200) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `infix` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `lessonpackage` int(2) UNSIGNED NOT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `visitor`
+--
+
+INSERT INTO `visitor` (`email`, `firstname`, `infix`, `lastname`, `lessonpackage`) VALUES
+('abe@info.org', 'Abe', 'Bejing', 'Li', 1),
+('bee@info.org', 'Bee', 'Dodoma', 'Chang', 2),
+('coen@info.org', 'Coen', 'Tokyo', 'Klomp', 3),
+('dick@info.org', 'Dick', 'Dakar', 'Zen', 1),
+('emanuel@info.org', 'Emanuel', 'Ridder', 'Europa', 2),
+('frank@info.org', 'Frank', 'Bern', 'Smith', 2);
+
+ALTER TABLE visitor
+    ADD CONSTRAINT fk_visitor_lessonpackage_id
+    FOREIGN KEY (lessonpackage)
+    REFERENCES lessonpackage(lessonpackageid);
+
+-- --------------------------------------------------------
+
 
 COMMIT;
 
