@@ -34,21 +34,23 @@ class Defects extends Controller
                         </tr>";
         }
 
-
         $data = [
         'title' => '<h3>Defects</h3>',
         'Defects' => $rows
         ];
         $this->view('Defects/index', $data);
     }
-    public function create() {
+    
+    public function create($kenteken = null) {
+        
+        // $row = $this->DefectModel->kentekenGetter($this->Kenteken);
         /**
          * Default waarden voor de view create.php
          */
 
         $data = [
         'title' => '<h3>Voeg een mankement toe</h3>',
-        'Kenteken' => '',
+        'Kenteken' => $kenteken, 
         'Mankement' => '',
         'KentekenError' => '',
         'MankementError' => '',
@@ -57,7 +59,6 @@ class Defects extends Controller
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
             $data = [
             'title' => '<h3>Voeg een mankement toe</h3>',
             'Kenteken' => trim($_POST['Kenteken']),
@@ -65,11 +66,10 @@ class Defects extends Controller
             'KentekenError' => '',
             'MankementError' => '',
             ];
-
             $data = $this->validateCreateForm($data);
-        
-            if (empty($data['KentekenError']) && empty($data['MankementError']) && empty($data['MankementError'])) {
-                if ($this->MankementModel->createMankement($_POST)) {
+            // if empty error
+            if (empty($data['KentekenError']) && empty($data['MankementError'])) {
+                if ($this->DefectModel->createMankement($_POST)) {
                     header("Location:" . URLROOT . "/defects/index");
                 } else {
                     echo "<div class='alert alert-danger' role='alert'>

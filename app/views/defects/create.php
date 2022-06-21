@@ -1,16 +1,15 @@
 <?php
   require APPROOT . '/views/includes/header.php';
   echo $data['title']; 
-  // var_dump($data);
 ?>
 
 <form action="<?= URLROOT; ?>/defects/create" method="post">
   <table>
     <tbody>
       <tr>        
-        <td>
+        <td> 
           <label class= "form-label" for="Kenteken">Kenteken</label>
-          <input class="form-control" type="text" name="Kenteken" id="Kenteken" value="<?= $data['Kenteken']; ?>">
+          <input class="form-control" type="text"  name="Kenteken" id="Kenteken" value="<?= $data['Kenteken']; ?>">
           <div class="errorForm"><?= $data['KentekenError']; ?></div>
         </td>
       </tr>
@@ -32,4 +31,3 @@
 
 <?php
   require APPROOT . '/views/includes/footer.php';
-?>
