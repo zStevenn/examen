@@ -93,4 +93,8 @@ class Rijlessen extends Controller
         }
         return $data;
     }
+
+    public function getRijlesId(){
+        return '5';
+    }
 }
