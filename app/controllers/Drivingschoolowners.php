@@ -77,7 +77,47 @@ class Drivingschoolowners extends Controller
   // Method to display view drivingschoolowners/assign
   public function assign()
   {
+    // Declare data as array
     $data = [];
+
+    // Check if a POST request has been send
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      // Check if the POST request includes an assign
+      if (isset($_POST["assign"])) {
+        // Filter POST inputs on special characters
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // Create a new array with post values
+        $assignCar = [
+          'type' => trim($_POST['type']),
+          'instructor' => trim($_POST['instructor'])
+        ];
+
+        // Check if type or instructor values are empty
+        if (empty($assignCar['type'] &&
+          empty($assignCar['instructor']))) {
+          // Initiate update method with assignCar values
+          if ($this->carModel->updateCarOwner($assignCar)) {
+            echo 'The car has been added successfully.<br> You will be redirected to the overview page shortly.';
+            header('Refresh:3; url=' . URLROOT . '/drivingschoolowners/index');
+          } else {
+            echo 'The car failed to update. Please try again later. <br> You will be redirected to the overview page shortly.';
+            header('Refresh: 3; url=' . URLROOT . '/drivingschoolowners/index');
+          }
+        } else {
+          echo 'You did not select an instructor or car. Please try again<br>You will be redirected to the overview page shortly.';
+          header('Refresh: 3; url=' . URLROOT . '/drivingschoolowners/index');
+        }
+      } else {
+        // User did not send an assign request
+        echo "It appears you did not submit an assign request...<br>We will redirect you to the overview.";
+        header("Refresh:3; url=" . URLROOT . "/drivingschoolowners/index");
+      }
+    } else {
+      // User did not request a POST method, he should not be on this page
+      echo "It appears something went wrong...<br>We will redirect you to the overview.";
+      header("Refresh:3; url=" . URLROOT . "/drivingschoolowners/index");
+    }
+
 
     $this->view('drivingschoolowners/assign', $data);
   }
