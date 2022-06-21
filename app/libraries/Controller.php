@@ -11,7 +11,7 @@ class Controller {
   
 
   public function model($model) {
-    require_once('C:/projects/examen/app/models/' . $model . '.php');
+    require_once('C:/protjects/examen/app/models/' . $model . '.php');
     return new $model();
   }
 

@@ -13,6 +13,6 @@
     
     <!-- Homebrewed CSS -->
     <link rel="stylesheet" href="<?= URLROOT; ?>/public/css/style.css">
-    <title>Landen van de Wereld</title>
+    <title>leerlingen table</title>
   </head>
   <body>

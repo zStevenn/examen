@@ -1,17 +1,18 @@
-
+<?php
+require APPROOT . '/views/includes/header.php';
+?>
     <table>
         <thead>
-        <th>Land</th>
-        <th>hoofdstad</th>
-        <th>continent</th>
-        <th>aantalinwoners</th>
-        <th>update</th>
-        <th>delete</th>
+        <th>datum</th>
+        <th>onderdeel</th>
         </thead>
         <tbody>
-        <?=$data['rows']?>
+        <?=$data['row']?>
         </tbody>
     </table>
     <a href="<?=URLROOT;?>/homepages/index">terug</a>
 
 
+<?php
+require APPROOT . '/views/includes/footer.php';
+?>
