@@ -2,7 +2,7 @@
 
   use TDD\libraries\Database;
 
-  class ActiveStudent {
+  class Defect {
     // Properties, fields
     private $db;
 
@@ -10,20 +10,10 @@
       $this->db = new Database();
     }
 
-    public function getActiveStudents() {
-      $this->db->query("SELECT  LES.les_id
-                                ,STT.studentname
-                                ,INS.instructorname
-                                ,STT.streetname
-                                ,LES.lessondate
-                                ,STT.studentemail
-                                ,INS.instructoremail
-                        FROM        les AS LES
-                        INNER JOIN  student AS STT
-                              ON  LES.les_id = STT.les_id
-                        INNER JOIN  instructor AS INS
-                              ON  LES.les_id = INS.les_id 
-                              ORDER BY `les_id` ASC;");
+    public function getDefects() {
+      $this->db->query("SELECT  Kenteken
+                                ,Model
+                        FROM    `auto`;");
       $result = $this->db->resultSet();
       return $result;
     }
