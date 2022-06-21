@@ -71,4 +71,3 @@
       return $this->statement->rowCount();
     }
   }
-?>
