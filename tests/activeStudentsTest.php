@@ -14,18 +14,18 @@ use PHPUnit\Framework\TestCase;
 use TDD\controllers\ActiveStudents;
 
 
- class ActiveStudentTest extends TestCase
- {
-    public function testSayMyName()
-    {
-        $ActiveStudent = new ActiveStudents();
-        $output = $ActiveStudent->sayMyName();
-        $expected = "Arjan";
-        $message = "Er moet uitkomen Arjan";
+//  class ActiveStudentTest extends TestCase
+//  {
+//     public function testSayMyName()
+//     {
+//         $ActiveStudent = new ActiveStudents();
+//         $output = $ActiveStudent->sayMyName();
+//         $expected = "Arjan";
+//         $message = "Er moet uitkomen Arjan";
 
-        $this->assertEquals($expected,
-                            $output,
-                            $message);
+//         $this->assertEquals($expected,
+//                             $output,
+//                             $message);
 
-    }
- }
+//     }
+//  }
