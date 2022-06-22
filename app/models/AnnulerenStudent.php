@@ -20,20 +20,27 @@ INNER JOIN  instructeur AS INS
         ON  LES.instructeur = INS.email
 INNER JOIN  leerling AS LLG
         ON  LES.leerling = LLG.id
-        WHERE LES.leerling = 3 AND CURRENT_TIMESTAMP < LES.datum ;");
+        WHERE LES.leerling = 3 AND CURRENT_TIMESTAMP < LES.datum AND LES.status = 'd';");
         $result = $this->db->resultSet();
         return $result;
     }
     public function createReden($post) {
-        // inserts into database
         try {
-            $this->db->query("INSERT INTO `INSERT INTO `annulerenlessen`(`id`, `les`, `reden`) 
-                                        VALUES (NULL ,':Les',':Reden');;");
-        $this->db->bind(':Les', $post["Les"], PDO::PARAM_STR);
+            // insert query
+            $this->db->query("INSERT INTO `annulerenlessen` (`id`, `les`, `reden`) 
+                                        VALUES (NULL ,:Les ,:Reden)");
+        // binds
+        $this->db->bind(':Les', $post["id"], PDO::PARAM_INT);
         $this->db->bind(':Reden', $post["Reden"], PDO::PARAM_STR);
-
-        return $this->db->execute();
         
+        $this->db->execute();
+        // update query
+        $this->db->query("UPDATE `lessen` SET `status` = 'z'
+                        WHERE `id` = :Les");
+
+        $this->db->bind(':Les', $post["id"], PDO::PARAM_INT);
+        return $this->db->execute();
+
         } catch (PDOException $e) {
             // if goes wrong
             logger(__FILE__, __METHOD__, __LINE__, $e->getMessage());

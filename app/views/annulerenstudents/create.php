@@ -8,15 +8,13 @@
         <tbody>
             <tr>
                 <td>
-                    <input class="form-control" type="hidden" name="id" id="id"
-                        value="<?= $data['id']; ?>">
+                    <input class="form-control" type="hidden" name="id" id="id" value="<?= $data['id']; ?>">
                 </td>
             </tr>
             <tr>
                 <td>
                     <label class="form-label" for="Reden">Reden</label>
-                    <input class="form-control" type="text" name="Reden" id="Reden"
-                        value="<?= $data['Reden']; ?>">
+                    <input class="form-control" type="text" name="Reden" id="Reden" value="<?= $data['Reden']; ?>">
                     <div class="errorForm"><?= $data['RedenError']; ?></div>
                 </td>
             </tr>

@@ -2,7 +2,7 @@
   require APPROOT . '/views/includes/header.php';
   echo $data["title"]; 
 ?>
-<table class = "table">
+<table class="table">
   <thead>
     <th>Kenteken</th>
     <th>Model</th>
@@ -17,4 +17,3 @@
 
 <?php 
   require APPROOT . '/views/includes/footer.php';
-

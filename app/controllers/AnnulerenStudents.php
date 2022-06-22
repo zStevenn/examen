@@ -40,10 +40,10 @@ class AnnulerenStudents extends Controller
         'title' => '<h3>AnnulerenStudents</h3>',
         'AnnulerenStudents' => $rows
         ];
-        $this->view('AnnulerenStudents/index', $data);
+        $this->view('annulerenstudents/index', $data);
     }
     
-    public function create($les = null) {
+    public function create($id = null) {
         
         /**
          * Default waarden voor de view create.php
@@ -51,10 +51,8 @@ class AnnulerenStudents extends Controller
 
         $data = [
         'title' => '<h3>Voeg een Reden toe</h3>',
-        'Les' => $les, 
         'Reden' => '',
-        'id' => '',
-        'LesError' => '',
+        'id' => $id,
         'RedenError' => '',
         ];
 
@@ -63,18 +61,17 @@ class AnnulerenStudents extends Controller
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $data = [
             'title' => '<h3>Voeg een Reden toe</h3>',
-            'Les' => trim($_POST['Les']),
             'Reden' => trim($_POST['Reden']),
-            'LesError' => '',
+            'id' => trim($_POST['id']),
             'RedenError' => '',
             ];
             $data = $this->validateCreateForm($data);
             // if empty error
-            if (empty($data['LesError']) && empty($data['RedenError'])) {
+            if (empty($data['RedenError'])) {
                 if ($this->AnnulerenStudentModel->createReden($_POST)) {
                     header("refresh:5;url=" . URLROOT . "/annulerenstudents/index");
                     echo "<div class='alert alert-succes' role='alert'>
-                        Reden is succesfol toegevoegd.
+                        les is  geannuleerd .
                         </div>";
                     
                 } else {
@@ -97,4 +94,3 @@ class AnnulerenStudents extends Controller
     }
 
 }
-
