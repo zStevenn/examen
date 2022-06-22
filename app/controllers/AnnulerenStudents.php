@@ -85,7 +85,7 @@ class AnnulerenStudents extends Controller
 
         $this->view("annulerenstudents/create", $data);    
     }
-
+// function om createform te valideren
     private function validateCreateForm($data) {
         if (empty($data['Reden'])) {
         $data['RedenError'] = 'Reden is leeg';
