@@ -52,12 +52,12 @@ class Announcements extends Controller
        
     }
     public function annoucement() {
-        $data = [
-            'id' =>   $id,    
-            'announcement' => $_POST['announcement'],
-            'announcementError' => ''
+        // $data = [
+        //     'id' =>   $id,    
+        //     'announcement' => $_POST['announcement'],
+        //     'announcementError' => ''
 
-            ];
+        //     ];
   
         $this->view('announcements/create');
     }

@@ -3,7 +3,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'owner');
 define('DB_PASS', 'SQLWachtwoord!');
-define('DB_NAME', 'examen');
+define('DB_NAME', 'exa2');
 
 define('APPROOT', dirname(dirname(__FILE__))) ;
 
