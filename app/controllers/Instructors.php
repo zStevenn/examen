@@ -18,6 +18,6 @@ class Instructors extends Controller
   {
     $data = null;
 
-    $this->view('visitors/index', $data);
+    $this->view('instructors/index', $data);
   }
 }
