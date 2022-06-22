@@ -26,7 +26,7 @@ class Instructors extends Controller
     $schedulerow = '<table class="table">';
     $schedulerow .= '<thead><tr>';
     $schedulerow .= '<th>Date</th><th>Name</th>';
-    $schedulerow .= '<th>Subjects</th>';
+    $schedulerow .= '<th>Topics</th>';
     $schedulerow .= '</tr></thead><tbody>';
     // Generate a table row for each datarow
     foreach ($scheduledata as $sd) {
@@ -35,7 +35,8 @@ class Instructors extends Controller
         $schedulerow .= '<tr>';
         $schedulerow .= '<td>' . $sd->datum . '</td>';
         $schedulerow .= '<td>' . $sd->naam . '</td>';
-        $schedulerow .= '<td><a class="btn btn-primary" href="' . URLROOT . '/instructors/subject/' . $sd->id . '">Subjects</a></td>';
+        $schedulerow .= '<td><a class="btn btn-primary" href="' . URLROOT . '/instructors/subject/' . $sd->id . '">View</a>';
+        $schedulerow .= '<a class="btn btn-secondary" href="' . URLROOT . '/instructors/subject/' . $sd->id . '">Add</a></td>';
         $schedulerow .= '</tr>';
       } else {
       }
@@ -144,7 +145,7 @@ class Instructors extends Controller
         if ($this->instructorModel->addSubject($input)) {
           // If success, return a message
           echo 'Your subject has been saved.';
-          header('Refresh:3; url=' . URLROOT . '/instructors/index');
+          header('Refresh:3; url=' . URLROOT . '/instructors/subject/' . $input['id']);
         } else {
           // If false, return an error
           echo 'Something went wrong saving your subject, please try again!';
