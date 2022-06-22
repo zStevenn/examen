@@ -35,4 +35,31 @@ class Instructor
     $result = $this->db->resultSet();
     return $result;
   }
+
+  // Check if the ID is a valid lessonID
+  public function checkValidLesson($id)
+  {
+    $this->db->query('SELECT * 
+                      FROM `lessen` AS `LES`
+                      WHERE `LES`.`id` = :id;');
+    $this->db->bind(':id', $id, PDO::PARAM_STR);
+    $this->db->execute();
+    $amount = $this->db->rowCount();
+    // If there is 1 row in the database, return true
+    if ($amount === 1) {
+      return true;
+      // If there are 0 rows in the database, return false
+    } elseif ($amount === 0) {
+      return false;
+    }
+  }
+
+  // Get all subjects by lesson id
+  public function getSubjectsByLessonid($id)
+  {
+    // Retrieve all data from table `onderwerpen`
+    $this->db->query('SELECT * FROM `onderwerpen` AS `OMK` WHERE `OMK`.`les` = :id');
+    $this->db->bind(':id', $id, PDO::PARAM_STR);
+    return $this->db->resultSet();
+  }
 }

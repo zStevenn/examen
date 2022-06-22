@@ -51,15 +51,48 @@ class Instructors extends Controller
   // Call subject view
   public function subject($id)
   {
+    // Declare empty error variable
+    $error = '';
 
+    // Check if $id is not empty and numeric
+    if (!empty($id) && is_numeric($id)) {
+      // Check if lesson id exists in database
+      $idexists = $this->instructorModel->checkValidLesson($id);
 
-    // Check if variable $id is empty
-    if (!empty($id)) {
-      echo 'execute this code if id not empty';
+      // If id exists in database, create a table of all lesson subjects
+      if ($idexists) {
+        // Request all subjects based on lesson ID
+        $subjectdata = $this->instructorModel->getSubjectsByLessonid($id);
+
+        // Generate table with subjects
+        $subjectTable = '<table class="table">';
+        $subjectTable .= '<thead><tr>';
+        $subjectTable .= '<th>Subjects</th>';
+        $subjectTable .= '</tr></thead><tbody>';
+
+        // Create table rows based on returned data from $subjectdata
+        if (!empty($subjectdata)) {
+          // Generate a table row for every subject data in the database
+          foreach ($subjectdata as $sd) {
+            $subjectTable .= '<tr><td>' . $sd->onderwerp . '</td></tr>';
+          }
+          // Return default table row if there are no subjects in the database
+        } else {
+          $subjectTable .= '<tr><td>There are no subjects assigned to this lesson</td></tr>';
+        }
+      } else {
+        $error = 'This lesson ID does not exist. <br> You will be redirected to the lesson overview.';
+        header("Refresh:3; url=" . URLROOT . "/instructors/index");
+      }
+    } else {
+      $error = 'The lesson subjects you are trying to find do not exist.<br> You will be redirected to the lesson overview.';
+      header("Refresh:3; url=" . URLROOT . "/instructors/index");
     }
 
     $data = [
-      'title' => 'Subject'
+      'title' => 'Subject',
+      'error' => $error,
+      'subjectTable' => $subjectTable
     ];
 
     $this->view('instructors/subject', $data);
