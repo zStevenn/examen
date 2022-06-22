@@ -2,4 +2,5 @@
 <p><h3><?= $data["title"]; ?></h3></p>
 <a href="<?=URLROOT;?>/activestudents/index" class="btn btn-success">ActiveStudents</a>
 <a href="<?=URLROOT;?>/defects/index" class="btn btn-success">Defects</a>
+<a href="<?=URLROOT;?>/annulerenstudents/index" class="btn btn-success">AnnulerenStudents</a>
 

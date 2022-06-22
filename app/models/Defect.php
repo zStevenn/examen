@@ -33,13 +33,5 @@
             return 0;
         }
     }
-    
-    public function kentekenGetter($Kenteken)
-    {
-        $this->db->query("SELECT Kenteken FROM `auto` WHERE Kenteken = ':Kenteken'");
-        $this->db->bind(':Kenteken', $Kenteken, PDO::PARAM_STR);
-        $row = $this->db->single();
-        return $row;
-    }
 }
 
