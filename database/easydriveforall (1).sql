@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 21, 2022 at 02:06 PM
+-- Generation Time: Jun 22, 2022 at 12:35 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.4.9
 
@@ -22,6 +22,32 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `easydriveforall` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `easydriveforall`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `annulerenlessen`
+--
+
+DROP TABLE IF EXISTS `annulerenlessen`;
+CREATE TABLE IF NOT EXISTS `annulerenlessen` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `les` int(11) NOT NULL,
+  `reden` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `les` (`les`)
+) ENGINE=MyISAM AUTO_INCREMENT=2370 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `annulerenlessen`
+--
+
+INSERT INTO `annulerenlessen` (`id`, `les`, `reden`) VALUES
+(2343, 45, 'Corona'),
+(2344, 50, 'griep'),
+(2345, 52, 'voet bezeerd'),
+(2364, 56, 'dood'),
+(2362, 55, 'gebrokenbeen');
 
 -- --------------------------------------------------------
 
@@ -46,6 +72,30 @@ INSERT INTO `auto` (`Kenteken`, `Model`) VALUES
 ('90-KL-TR', 'Fiat 500'),
 ('YY-OP-78', 'Mercedes'),
 ('90-KL-TF', 'Fiat 600');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `instructeur`
+--
+
+DROP TABLE IF EXISTS `instructeur`;
+CREATE TABLE IF NOT EXISTS `instructeur` (
+  `email` varchar(50) NOT NULL,
+  `naam` varchar(50) NOT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `instructeur`
+--
+
+INSERT INTO `instructeur` (`email`, `naam`) VALUES
+('groen@mail.nl', 'groen'),
+('konijn@google.com', 'konijn'),
+('frasi@google.sp', 'frasi'),
+('blauw@gmail.com', 'blauw'),
+('paars@gmail.com', 'paars');
 
 -- --------------------------------------------------------
 
@@ -77,6 +127,33 @@ INSERT INTO `instructor` (`instructoremail`, `instructorname`, `phonenumber`, `l
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `leerling`
+--
+
+DROP TABLE IF EXISTS `leerling`;
+CREATE TABLE IF NOT EXISTS `leerling` (
+  `id` int(11) NOT NULL,
+  `naam` varchar(100) NOT NULL,
+  `woonplaats` varchar(100) NOT NULL,
+  `postcode` varchar(100) NOT NULL,
+  `straat` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `leerling`
+--
+
+INSERT INTO `leerling` (`id`, `naam`, `woonplaats`, `postcode`, `straat`) VALUES
+(3, 'Konijn', 'Utrecht', '3590 UV', 'Laan 45'),
+(4, 'slavink', 'nieuwegein', '3678 II', 'Overweg 7'),
+(6, 'Otto', 'houten', '3822 AS', 'Groenlo 44'),
+(2, 'Aron', 'Utrecht', '4215 PH', 'mooiestraat'),
+(1, 'maric', 'Alphen', '5215 AL', 'Alphsestraat');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `les`
 --
 
@@ -99,6 +176,42 @@ INSERT INTO `les` (`les_id`, `instructorname`, `studentname`, `lessondate`) VALU
 (3, 'instructor3', 'student3', '2022-06-30 08:56:36'),
 (4, 'instructor4', 'student4', '2022-06-30 08:58:12'),
 (5, 'instructor5', 'student5', '2022-07-20 08:58:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lessen`
+--
+
+DROP TABLE IF EXISTS `lessen`;
+CREATE TABLE IF NOT EXISTS `lessen` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Datum` date NOT NULL,
+  `leerling` int(11) NOT NULL,
+  `instructeur` varchar(100) NOT NULL,
+  `status` varchar(1) NOT NULL DEFAULT 'd',
+  PRIMARY KEY (`id`),
+  KEY `leerling` (`leerling`),
+  KEY `instructeur` (`instructeur`)
+) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `lessen`
+--
+
+INSERT INTO `lessen` (`id`, `Datum`, `leerling`, `instructeur`, `status`) VALUES
+(45, '2022-05-20', 3, 'groen@mail.nl', 'z'),
+(46, '2022-05-20', 6, 'frasi@google.sp', 'd'),
+(47, '2022-05-21', 4, 'konijn@google.com', 'd'),
+(48, '2022-05-22', 6, 'frasi@google.sp', 'd'),
+(49, '2022-05-22', 3, 'groen@mail.nl', 'd'),
+(50, '2022-05-28', 4, 'konijn@google.com', 'd'),
+(51, '2022-06-01', 3, 'konijn@google.com', 'd'),
+(52, '2022-06-12', 3, 'groen@mail.nl', 'd'),
+(53, '2022-06-22', 3, 'groen@mail.nl', 'd'),
+(54, '2022-06-24', 4, 'konijn@google.com', 'd'),
+(55, '2022-06-24', 3, 'groen@mail.nl', 'd'),
+(56, '2022-06-28', 3, 'frasi@google.sp', 'd');
 
 -- --------------------------------------------------------
 
