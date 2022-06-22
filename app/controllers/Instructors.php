@@ -41,12 +41,27 @@ class Instructors extends Controller
       }
     }
 
-
-
     $data = [
       'scheduleinfo' => $schedulerow
     ];
 
     $this->view('instructors/index', $data);
+  }
+
+  // Call subject view
+  public function subject($id)
+  {
+
+
+    // Check if variable $id is empty
+    if (!empty($id)) {
+      echo 'execute this code if id not empty';
+    }
+
+    $data = [
+      'title' => 'Subject'
+    ];
+
+    $this->view('instructors/subject', $data);
   }
 }
