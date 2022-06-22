@@ -51,8 +51,9 @@ class Instructors extends Controller
   // Call subject view
   public function subject($id)
   {
-    // Declare empty error variable
+    // Declare empty variables
     $error = '';
+    $subjecturl = '';
 
     // Check if $id is not empty and numeric
     if (!empty($id) && is_numeric($id)) {
@@ -63,6 +64,8 @@ class Instructors extends Controller
       if ($idexists) {
         // Request all subjects based on lesson ID
         $subjectdata = $this->instructorModel->getSubjectsByLessonid($id);
+
+        $subjecturl = URLROOT . '/instructors/createSubject';
 
         // Generate table with subjects
         $subjectTable = '<table class="table">';
@@ -81,20 +84,29 @@ class Instructors extends Controller
           $subjectTable .= '<tr><td>There are no subjects assigned to this lesson</td></tr>';
         }
       } else {
+        $subjectTable = '';
         $error = 'This lesson ID does not exist. <br> You will be redirected to the lesson overview.';
-        header("Refresh:3; url=" . URLROOT . "/instructors/index");
+        header("Refresh:0; url=" . URLROOT . "/instructors/index");
       }
     } else {
+      $subjectTable = '';
       $error = 'The lesson subjects you are trying to find do not exist.<br> You will be redirected to the lesson overview.';
-      header("Refresh:3; url=" . URLROOT . "/instructors/index");
+      header("Refresh:0; url=" . URLROOT . "/instructors/index");
     }
 
     $data = [
       'title' => 'Subject',
+      'id' => $id,
       'error' => $error,
-      'subjectTable' => $subjectTable
+      'subjectTable' => $subjectTable,
+      'subjecturl' => $subjecturl
     ];
 
     $this->view('instructors/subject', $data);
+  }
+
+  // Function to create a subject
+  public function createSubject()
+  {
   }
 }
