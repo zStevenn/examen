@@ -62,4 +62,22 @@ class Instructor
     $this->db->bind(':id', $id, PDO::PARAM_STR);
     return $this->db->resultSet();
   }
+
+  // Add a subject to the database
+  public function addSubject(array $data)
+  {
+    // Try to execute a query
+    try {
+      // Create SQL query
+      $this->db->query('INSERT INTO `onderwerpen` (`id`, `les`, `onderwerp`) VALUES (NULL, :id, :subject);');
+      $this->db->bind(':subject', $data['subject'], PDO::PARAM_STR);
+      $this->db->bind(':id', $data['id'], PDO::PARAM_STR);
+      // Return true if successfully executed
+      return $this->db->execute();
+    } catch (PDOException $e) {
+      // Return a logger if 
+      logger(__FILE__, __METHOD__, __LINE__, $e->getMessage());
+      return 0;
+    }
+  }
 }

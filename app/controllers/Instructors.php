@@ -108,5 +108,71 @@ class Instructors extends Controller
   // Function to create a subject
   public function createSubject()
   {
+    // Default array values
+    $input = [
+      'subject' => '',
+      'id' => '',
+      'subjectError' => '',
+      'idError' => ''
+    ];
+
+    // Check if a POST has been send
+    if ($_SERVER['REQUEST_METHOD'] = 'POST') {
+
+      // Filter post values on special characters
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+      // Trim post values and put them into the array
+      $input = [
+        'subject' => trim($_POST['subject']),
+        'id' => trim($_POST['id']),
+        'subjectError' => '',
+        'idError' => ''
+      ];
+
+      // Validate data using validateSubjectForm
+      $input = $this->validateSubjectForm($input);
+
+      // Check if errors are empty
+      if (
+        empty($input['subjectError']) &&
+        empty($input['idError']) &&
+        !empty($input['subject']) &&
+        !empty($input['id'])
+      ) {
+        // Add subject into table `onderwerpen`
+        if ($this->instructorModel->addSubject($input)) {
+          // If success, return a message
+          echo 'Your subject has been saved.';
+          header('Refresh:3; url=' . URLROOT . '/instructors/index');
+        } else {
+          // If false, return an error
+          echo 'Something went wrong saving your subject, please try again!';
+          header('Refresh:3; url=' . URLROOT . '/instructors/index');
+        }
+      }
+    } else {
+      echo 'It appears you did not request this page.';
+      header('Refresh:3; url=' . URLROOT . '/instructors/index');
+    }
+  }
+
+  // Function to check subject inputs
+  private function validateSubjectForm($data)
+  {
+    if (empty($data['subject'])) {
+      echo 'You did not fill in a subject.';
+      header('Refresh:3; url=' . URLROOT . '/instructors/index');
+    }
+
+    if (empty($data['id'])) {
+      echo 'You did not give an ID to edit.';
+      header('Refresh:3; url=' . URLROOT . '/instructors/index');
+    } elseif (!$this->instructorModel->checkValidLesson($data['id'])) {
+      echo 'The lesson does not exist.';
+      header('Refresh:3; url=' . URLROOT . '/instructors/index');
+    }
+
+    return $data;
   }
 }
