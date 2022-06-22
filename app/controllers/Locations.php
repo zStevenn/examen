@@ -38,7 +38,7 @@ class Locations extends Controller
         $Lessons = $this->locationModel->getLessons();
 
         /**
-         * Maak de inhoud voor de tbody in de view
+         * The data for the tbody in view
          */
         $rows = '';
         foreach ($Lessons as $l) {
@@ -50,7 +50,9 @@ class Locations extends Controller
 
                     </tr>";
         }
-
+         /**
+         * The data for the tbody in a modal at the view
+         */
         $rows2 = '';
         foreach ($Lessons as $l) {
             $rows2 .= "<tr>
@@ -72,7 +74,7 @@ class Locations extends Controller
     public function create($id = null)
     {
         /**
-         * Default waarden voor de view create.php
+         * Defealt fields
          */
   
         $data = [
@@ -104,10 +106,10 @@ class Locations extends Controller
                 if ($this->locationModel->ChangePickup($_POST)) {
                     header("Location:" . URLROOT . "/locations/overview");
                 } else {
-                    
-                    echo "<div class='alert alert-danger' role='alert'>
-                        Er heeft een interne servererror plaatsgevonden<br>probeer het later nog eens...
-                    </div>";
+                    var_dump($data);
+                    // echo "<div class='alert alert-danger' role='alert'>
+                    //     Er heeft een interne servererror plaatsgevonden<br>probeer het later nog eens...
+                    // </div>";
                     // header("Refresh:3; url=" . URLROOT . "/locations/index");
                 }
             }
@@ -136,7 +138,7 @@ class Locations extends Controller
    
    
    
-   
+   // A form to see if input fields are empty
     private function validateCreateForm($data)
     {
         if (empty($data['Straat'])) {

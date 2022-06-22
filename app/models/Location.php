@@ -13,6 +13,7 @@ class Location
     }
     public function getLessons()
     {
+        // a select to selecte all lessons that are going to happen
         $this->db->query("SELECT `LS` .Id,
                                  `LS` .Datum, 
                                  `LS` .Leerling, 
@@ -37,7 +38,19 @@ class Location
     {
         
         try {
-            $this->db->query(" INSERT INTO `altophaallocatie`( `LES`, `Straat`, `Woonplaats`)  VALUES (:les, :Straat, :Woonplaats)");
+            // A insert query that will put 2 fiels in to altophaallocatie
+            $this->db->query(" INSERT INTO `altophaallocatie`
+                                            ( `LES`,
+                                              `Straat`,
+                                              `Woonplaats`)
+                                              VALUES (
+                                              :les,
+                                              :Straat, 
+                                              :Woonplaats)
+                                            --   ON DUPLICATE KEY UPDATE
+                                            --   `Straat`= :Straat,
+                                            --   `Woonplaats`= :Woonplaats
+                                            ");
 
         
             $this->db->bind(':les', $post["Id"], PDO::PARAM_STR);
