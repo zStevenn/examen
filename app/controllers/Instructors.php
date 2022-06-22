@@ -16,7 +16,17 @@ class Instructors extends Controller
   // Call index view
   public function index()
   {
-    $data = null;
+    // Retrieve all schedule data from database for a specific instructor
+    $scheduledata = $this->instructorModel->getInstructorSchedule('konijn@google.com');
+
+    foreach ($scheduledata as $sd) {
+    }
+
+    $scheduleinfo = "";
+
+    $data = [
+      'scheduleinfo' => $scheduleinfo
+    ];
 
     $this->view('instructors/index', $data);
   }
