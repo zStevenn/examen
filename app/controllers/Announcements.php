@@ -26,7 +26,7 @@ class Announcements extends Controller
         foreach ($Instructor as $I) {
             $rows .= "<tr>";
             $rows .= "<td>" . $I->Name . "</td>";
-            $rows .= "<td> . <a class='btn btn-xs btn-info' href=/Announcements/annoucement?id=$I->Id>Edit . </td>";
+            $rows .= "<td> . <a class='btn btn-xs btn-info' href=" . URLROOT . "/announcements/create?id=$I->Id>Edit . </td>";
             # $rows .= "<td>" .  . "</td>";
             $rows .= "</tr>";
         }
@@ -36,7 +36,7 @@ class Announcements extends Controller
         foreach ($Student as $S) {
             $rows .= "<tr>";
             $rows .= "<td>" . $S->Name . "</td>";
-            $rows .= "<td> . <a class='btn btn-xs btn-info' href=\Announcements\annoucement?id=$S->id>Edit . </td>";
+            $rows .= "<td> . <a class='btn btn-xs btn-info' href=" . URLROOT . "/announcements/create?id=$S->id>Edit . </td>";
             # $rows .= "<td>" .  . "</td>";
             $rows .= "</tr>";
         }
@@ -52,38 +52,69 @@ class Announcements extends Controller
        
     }
     public function annoucement() {
-        $data =$this->AnnouncementModel->annoucement();
-        $this->view('announcements/annoucement', $data);
-  
-    }
-    public function updateannoucement()
-    {   
-        $data =[
-                
-                    'instructor' => 'announcement'
-                  
-                ];
-        
-        
+        $data = [
+            'id' =>   $id,    
+            'announcement' => $_POST['announcement'],
+            'announcementError' => ''
 
-        if (isset($_POST)) {
-            // Check if submit button is pressed
-            if (isset($_POST["submit"])) {
-              // Put post values into variables
-              $data = [
-                'instructor' => $_POST['announcement']
-              ];
-              $id = $_GET["id"];
-             
-              $this->AnnouncementModel->updateannoucement($id, $data);
-      
-              //Check if variables are not empty
-            
+            ];
+  
+        $this->view('announcements/create');
+    }
+    public function CreateAnnoucement()
+    {   
+        
+     $id = $_GET['id'];
+   
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            $_POST = filter_input_array(INPUT_POST);
+
+            $data = [
+            'id' =>   $id,    
+            'announcement' => $_POST['announcement'],
+            'announcementError' => ''
+
+            ];
+            if (empty($data['announcementError']))
+                {
+                if ($this->AnnouncementModel->createannoucement($_POST)) {
+                    /**
+                     * Dan een melding dat de gegevens zijn gewijzigd
+                     */
+                    echo "<div class='alert alert-success' role='alert'>
+                            Uw gegevens zijn gewijzigd.
+                        </div>";
+                    // header("Refresh:3; url=" . URLROOT . "/announcements/index");
+                } else {
+                    /**
+                     * Anders de melding dat er een interne servererror heeft plaatsgevonden
+                     */
+                    echo "<div class='alert alert-danger' role='alert'>
+                            Er heeft een interne servererror plaatsgevonden<br>probeer het later nog eens...
+                        </div>";
+                     // header("Refresh:3; url=" . URLROOT . "/announcements/index");
+                }   
             }
-          }
+            $this->view('announcements/create', $data);
+            
+        }else 
+        {
+
+                $row = $this->AnnouncementModel->annoucement($id);
+                $data = [
+                    'id' =>   $row->Id,    
+                    'announcement' => $row->Announcement,
+                    'announcementError' => ''
+                ];
+                $this->view('announcements/create', $data);
+            }
+        
+            
+        
       
-        $this->AnnouncementModel->updateannoucement($id, $data);
-       
+        
     }
   
 

@@ -1,13 +1,16 @@
 <?php
   require APPROOT . '/views/includes/header.php';
-var_dump($data)
+  $id = $_GET['id'];
+  var_dump($data);
+  
 ?>
- <form action='<?= URLROOT; ?>\Announcements\updateannoucement?id=<?= $data->Instructor; ?>' method="POST" class="form">
+ <form action='<?= URLROOT; ?>announcements/create' method="post" class="form">
                         <div class="row">
                         <div class="col-12">
                             <label class="visually-hidden">Annoucement</label>
-                            <input value="<?= $data->Announcement; ?>" type="inputAnnouncement" name="inputAnnouncement" class="form-control" id="inputAnnouncement" placeholder="Announcement">
-                        </div>
+                            <input value="<?= $data['announcement']; ?>" type="text" name="inputAnnouncement" class="form-control" id="inputAnnouncement" placeholder="Announcement">
+                            <div class="errorForm"><?= $data['announcementError']; ?></div>
+                          </div>
                         <br></br>   
                         <div class="row">
                             <div class="col-12">
