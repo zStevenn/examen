@@ -1,6 +1,6 @@
 <?php
   require APPROOT . '/views/includes/header.php';
-var_dump($data)
+
 ?>
 
   <div class="card-body">

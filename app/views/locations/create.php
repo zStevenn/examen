@@ -9,14 +9,14 @@ require APPROOT . '/views/includes/header.php';
         <tr>
                 <td>
 
-                    <input class="form-control" type="hidden" name="ID" id="ID" value="<?= $data['Id']; ?>">
+                    <!-- <input class="form-control" type="hidden" name="Id" id="Id" value="<?= $data['Id']; ?>"> -->
                 
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label class="form-label" for="Straat">Wijzigen van straat en huisnummer</label>
-                    <input class="form-control" type="text" name="Straat" id="Straat" value="<?= $data['Id']; ?>">
+
+                    <input class="form-control" type="hidden" name="Id" id="Id" value="<?= $data['Id']; ?>">
                     <div class="errorForm"><?= $data['StraatError']; ?></div>
                 </td>
             </tr>

@@ -13,6 +13,26 @@ class Locations extends Controller
     {
         $this->locationModel = $this->model('Location');
     }
+
+    public function overview()
+    {   
+       $alt = $this->locationModel->overview();
+      
+      
+       $rows = '';
+       foreach ($alt as $a) {
+           $rows .= "<tr>
+       <td>" . $a->LES . "</td>
+       <td>" . $a->Straat . "</td>
+       <td>" . $a->Woonplaats . "</td>
+        </tr>";
+       }
+       $data = [ 'location' => $rows];
+       $this->view('locations/overview', $data);
+    }
+
+
+
     public function index()
     {
         $Lessons = $this->locationModel->getLessons();
@@ -49,12 +69,12 @@ class Locations extends Controller
         ];
         $this->view('locations/index', $data);
     }
-    public function create()
+    public function create($id = null)
     {
         /**
          * Default waarden voor de view create.php
          */
-
+  
         $data = [
             'Id' => '',
             'Straat' => '',
@@ -82,18 +102,41 @@ class Locations extends Controller
 
             if (empty($data['StraatError']) && empty($data['WoonplaatsError'])) {
                 if ($this->locationModel->ChangePickup($_POST)) {
-                    header("Location:" . URLROOT . "/locations/index");
+                    header("Location:" . URLROOT . "/locations/overview");
                 } else {
-                    // echo "<div class='alert alert-danger' role='alert'>
-                    //     Er heeft een interne servererror plaatsgevonden<br>probeer het later nog eens...
-                    // </div>";
-                    // header("Refresh:3; url=" . URLROOT . "/countries/index");
+                    
+                    echo "<div class='alert alert-danger' role='alert'>
+                        Er heeft een interne servererror plaatsgevonden<br>probeer het later nog eens...
+                    </div>";
+                    // header("Refresh:3; url=" . URLROOT . "/locations/index");
                 }
             }
-        }
+        }else {
+         
+            $row = $this->locationModel->getSingleLocation($id);
+           var_dump($row->LES);
+            $data = [
+                'Id' => $row->LES,
+                'Straat' => '',
+                'Woonplaats' => '',
+
+                'StraatError' => '',
+                'WoonplaatsError' => ''
+            ];
+            
+            $this->view("locations/create", $data);
+        }    
 
         $this->view("locations/create", $data);
     }
+   
+   
+   
+   
+   
+   
+   
+   
     private function validateCreateForm($data)
     {
         if (empty($data['Straat'])) {

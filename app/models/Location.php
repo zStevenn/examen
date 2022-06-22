@@ -35,21 +35,12 @@ class Location
 
     public function ChangePickup($post)
     {
-        var_dump($post);
+        
         try {
-            $this->db->query("INSERT INTO `altophaallocatie`(
-                                                         
-                                                            `LES`, 
-                                                            `Straat`, 
-                                                            `Woonplaats`) 
-                                                            VALUES (
-                                                               
-                                                                :les,
-                                                                :Straat,
-                                                                :Woonplaats");
+            $this->db->query(" INSERT INTO `altophaallocatie`( `LES`, `Straat`, `Woonplaats`)  VALUES (:les, :Straat, :Woonplaats)");
 
         
-            $this->db->bind(':les', $post["Id"], PDO::PARAM_INT);
+            $this->db->bind(':les', $post["Id"], PDO::PARAM_STR);
             $this->db->bind(':Straat', $post["Straat"], PDO::PARAM_STR);
             $this->db->bind(':Woonplaats', $post["Woonplaats"], PDO::PARAM_STR);
 
@@ -59,5 +50,18 @@ class Location
             logger(__FILE__, __METHOD__, __LINE__, $e->getMessage());
             return 0;
         }
+    }
+
+    public function getSingleLocation($id) {
+        $this->db->query("SELECT `ID`, `LES`, `Straat`, `Woonplaats` FROM `altophaallocatie` WHERE `LES` = :id");
+        $this->db->bind(':id', $id, PDO::PARAM_INT);
+        return $this->db->single();
+      }
+
+    public function overview() {
+        $this->db->query(" SELECT `ID`, `LES`, `Straat`, `Woonplaats` FROM `altophaallocatie` WHERE `LES` = 11 OR `LES` = 12
+        ");
+        $result = $this->db->resultSet();
+        return $result;
     }
 }
